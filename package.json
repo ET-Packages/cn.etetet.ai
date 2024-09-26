@@ -1,7 +1,7 @@
 ﻿{
   "name": "cn.etetet.ai",
   "displayName": "ET.AI",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "unity": "2022.3",
   "description": "行为机模块，用来写ai非常方便",
   "author": {

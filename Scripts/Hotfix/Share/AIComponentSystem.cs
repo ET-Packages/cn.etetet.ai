@@ -50,7 +50,7 @@ namespace ET
 
             var oneAI = AIConfigCategory.Instance.AIConfigs[self.AIConfigId];
 
-            foreach (AIConfig aiConfig in oneAI.Values)
+            foreach (AIConfig aiConfig in oneAI)
             {
 
                 AAIHandler aaiHandler = AIDispatcherComponent.Instance.Get(aiConfig.Name);

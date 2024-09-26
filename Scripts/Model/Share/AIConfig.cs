@@ -8,9 +8,9 @@ namespace ET
 	public partial class AIConfigCategory
 	{
 		[BsonIgnore]
-		public Dictionary<int, SortedDictionary<int, AIConfig>> AIConfigs = new Dictionary<int, SortedDictionary<int, AIConfig>>();
+		public Dictionary<int, List<AIConfig>> AIConfigs = new ();
 
-		public SortedDictionary<int, AIConfig> GetAI(int aiConfigId)
+		public List<AIConfig> GetAI(int aiConfigId)
 		{
 			return this.AIConfigs[aiConfigId];
 		}
@@ -19,14 +19,19 @@ namespace ET
 		{
 			foreach (var kv in this.GetAll())
 			{
-				SortedDictionary<int, AIConfig> aiNodeConfig;
+				List<AIConfig> aiNodeConfig;
 				if (!this.AIConfigs.TryGetValue(kv.Value.AIConfigId, out aiNodeConfig))
 				{
-					aiNodeConfig = new SortedDictionary<int, AIConfig>();
+					aiNodeConfig = new List<AIConfig>();
 					this.AIConfigs.Add(kv.Value.AIConfigId, aiNodeConfig);
 				}
 				
-				aiNodeConfig.Add(kv.Key, kv.Value);
+				aiNodeConfig.Add(kv.Value);
+			}
+
+			foreach (var kv in this.AIConfigs)
+			{
+				kv.Value.Sort((x, y)=>x.AIConfigId - y.AIConfigId);
 			}
 		}
 	}
